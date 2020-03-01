@@ -26,12 +26,12 @@ pip install -r stable-req.txt
 
 # Syntax
 ```
-python vehiclescraper.py <vehicle-number>
+python vehicle.py <vehicle-number>
 ```
 
 
 # Example
 ```
-python vehiclescraper.py UK07AC1234
+python vehicle.py UK07AC1234
 ```
 
