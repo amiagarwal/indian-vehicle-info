@@ -27,6 +27,7 @@ else:
   driver = webdriver.Chrome(executable_path='./chromedriver')
 
 vehicle_number = sys.argv[1]
+
 url = 'https://vahan.nic.in/nrservices/faces/user/searchstatus.xhtml'
 get_data_url_script = ("window.getDataUrl = function (img) {"
   "var canvas = document.createElement('canvas');"
@@ -68,14 +69,14 @@ for i in range(1, max_try):
   #submit button
   submit_button = driver.find_element_by_xpath('//button[@type="submit"]')
   submit_button.click()
-  
+
   try:
-    WebDriverWait(driver,2).until(EC.visibility_of_element_located((By.ID, 'rcDetailsPanel')))
+    # wait for spinner to get hidden for 20 seconds
+    WebDriverWait(driver,20).until(EC.invisibility_of_element_located((By.XPATH, "//div[contains(@class, 'ui-blockui')]")))
     # main panel which has the result data
-    rc_details_panel = driver.find_element_by_id('rcDetailsPanel')
-    rc_details_panel = rc_details_panel.text
+    rc_details_panel = driver.find_element_by_id('rcDetailsPanel').text
     break
-  except exceptions.TimeoutException as e:
+  except exceptions.NoSuchElementException as e:
     # if captcha value is wrong; run the loop again until it doesn't provide the info
     pass
 
